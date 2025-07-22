@@ -1,0 +1,17 @@
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+
+  svg path {
+    fill: var(--tgui--secondary_hint_color);
+  }
+  &.active {
+    svg path {
+      fill: var(--tg-theme-accent-text-color);
+    }
+  }
+}
