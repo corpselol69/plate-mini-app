@@ -1,43 +1,86 @@
-import { Section, Cell, Image, List } from '@telegram-apps/telegram-ui';
-import type { FC } from 'react';
+import { useState, type FC } from "react";
 
-import { Link } from '@/components/Link/Link.tsx';
-import { Page } from '@/components/Page.tsx';
-
-import tonSvg from './ton.svg';
+import { Page } from "@/components/Page.tsx";
+import { Card, Title, Button, Text, Image } from "@telegram-apps/telegram-ui";
+import logo from "@/static/logo.png";
+import broneImg from "@/static/placeholders/brone.webp";
+import { NavBar } from "@/components/common/Navbar/Navbar";
+import { useNavigate } from "react-router-dom";
 
 export const IndexPage: FC = () => {
+  const navigate = useNavigate();
+
+  const [activeTab, setActiveTab] = useState<"home" | "cart" | "profile">(
+    "home"
+  );
+  const handleBuyClick = () => {
+    navigate("/product");
+  };
   return (
     <Page back={false}>
-      <List>
-        <Section
-          header="Features"
-          footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 1,
+            backgroundColor: "var(--tg-theme-bg-color, white)",
+
+            padding: "4px 12px",
+            borderBottomLeftRadius: 16,
+            borderBottomRightRadius: 16,
+            zIndex: 1000,
+          }}
         >
-          <Link to="/ton-connect">
-            <Cell
-              before={<Image src={tonSvg} style={{ backgroundColor: '#007AFF' }}/>}
-              subtitle="Connect your TON wallet"
-            >
-              TON Connect
-            </Cell>
-          </Link>
-        </Section>
-        <Section
-          header="Application Launch Data"
-          footer="These pages help developer to learn more about current launch information"
-        >
-          <Link to="/init-data">
-            <Cell subtitle="User data, chat information, technical data">Init Data</Cell>
-          </Link>
-          <Link to="/launch-params">
-            <Cell subtitle="Platform identifier, Mini Apps version, etc.">Launch Parameters</Cell>
-          </Link>
-          <Link to="/theme-params">
-            <Cell subtitle="Telegram application palette information">Theme Parameters</Cell>
-          </Link>
-        </Section>
-      </List>
+          <Image
+            src={logo}
+            style={{
+              boxShadow: "none",
+              width: "72px",
+              minWidth: "72px",
+              height: "72px",
+              backgroundColor: "transparent",
+            }}
+          />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <Title weight="2">Магазин&nbsp;Бронепластин</Title>
+            <Text>Испытано в&nbsp;полевых условиях</Text>
+          </div>
+        </div>
+
+        <Card style={{ padding: 12, margin: "0 16px" }} type="plain">
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <Image
+              src={broneImg}
+              style={{
+                boxShadow: "none",
+                width: "100%",
+                minWidth: "100%",
+                height: "200px",
+                borderRadius: 8,
+              }}
+            />
+            <Title weight={"3"}>Бронепластина</Title>
+            <Text>1 шт. или комплект из 2 — выбирай нужную конфигурацию.</Text>
+
+            <Button size="l" onClick={handleBuyClick}>
+              Подробнее
+            </Button>
+          </div>
+        </Card>
+
+        <Text weight={"1"} style={{ color: "#999", textAlign: "center" }}>
+          Сделано с заботой о безопасности
+        </Text>
+      </div>
     </Page>
   );
 };
