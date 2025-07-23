@@ -13,45 +13,68 @@ interface NavBarProps {
   onNavigate: (section: "home" | "cart" | "profile") => void;
 }
 
-/**
- * Нижняя навигационная панель приложения.
- * Использует TelegramUI (Tabbar / FixedLayout) и Tabler‑based иконки из библиотеки.
- */
 export const NavBar: FC<NavBarProps> = ({
   active,
   cartCount = 0,
   onNavigate,
 }) => (
   <FixedLayout vertical="bottom">
-    <Tabbar>
+    <Tabbar style={{ gap: "8px", height: "80px" }}>
       <Tabbar.Item
-        text="Главная"
+        text="БАЗА"
         selected={active === "home"}
         onClick={() => onNavigate("home")}
+        style={{
+          flex: 1,
+          color: active === "home" ? "var(--military-secondary)" : undefined,
+        }}
       >
         <Icon src={storeIcon} isActive={active === "home"} />
       </Tabbar.Item>
 
       <Tabbar.Item
-        text="Корзина"
+        text="КОРЗИНА"
         selected={active === "cart"}
         onClick={() => onNavigate("cart")}
+        style={{
+          flex: 1,
+          color: active === "cart" ? "var(--military-secondary)" : undefined,
+        }}
       >
-        {cartCount > 0 && (
-          <Badge
-            type="number"
-            style={{ position: "absolute", top: 2, right: 2 }}
-          >
-            {cartCount > 99 ? "99+" : cartCount}
-          </Badge>
-        )}
-        <Icon src={shoppingCartIcon} isActive={active === "cart"} />
+        <div style={{ position: "relative", margin: "0 4px" }}>
+          {cartCount > 0 && (
+            <Badge
+              type="number"
+              style={{
+                position: "absolute",
+                top: -8,
+                right: -8,
+                backgroundColor: "#e53e3e",
+                color: "white",
+                fontSize: "10px",
+                fontWeight: "700",
+                minWidth: "18px",
+                height: "18px",
+                borderRadius: "9px",
+                zIndex: 10,
+              }}
+            >
+              {cartCount > 99 ? "99+" : cartCount}
+            </Badge>
+          )}
+
+          <Icon src={shoppingCartIcon} isActive={active === "cart"} />
+        </div>
       </Tabbar.Item>
 
       <Tabbar.Item
-        text="Профиль"
+        text="ПРОФИЛЬ"
         selected={active === "profile"}
         onClick={() => onNavigate("profile")}
+        style={{
+          flex: 1,
+          color: active === "profile" ? "var(--military-secondary)" : undefined,
+        }}
       >
         <Avatar
           size={24}
