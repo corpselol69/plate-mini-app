@@ -35,7 +35,7 @@ export function Page({
 
   return (
     <>
-      {children}
+      <div style={{ paddingBottom: "80px" }}>{children}</div>
       <NavBar
         active={active}
         cartCount={0 /* TODO: взять из Redux */}
