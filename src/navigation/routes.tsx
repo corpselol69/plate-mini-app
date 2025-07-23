@@ -2,6 +2,8 @@ import type { ComponentType } from "react";
 
 import { IndexPage } from "@/pages/IndexPage/IndexPage";
 import { ProductPage } from "@/pages/ProductPage/ProductPage";
+import { CartPage } from "@/pages/CartPage/CartPage";
+import { ProfilePage } from "@/pages/ProfilePage/ProfilePage";
 
 export interface AppRoute {
   path: string;
@@ -24,7 +26,7 @@ export const routes: AppRoute[] = [
   },
   {
     path: "/cart",
-    Component: IndexPage,
+    Component: CartPage,
     title: "Корзина",
 
     children: [
@@ -34,7 +36,7 @@ export const routes: AppRoute[] = [
   },
   {
     path: "/profile",
-    Component: IndexPage,
+    Component: ProfilePage,
     title: "Профиль",
   },
 ];
