@@ -19,7 +19,14 @@ export const NavBar: FC<NavBarProps> = ({
   onNavigate,
 }) => (
   <FixedLayout vertical="bottom">
-    <Tabbar style={{ gap: "8px", height: "80px" }}>
+    <Tabbar
+      style={{
+        gap: "8px",
+        height: "80px",
+        backgroundColor: "var(--bg-base)",
+        borderRadius: "12px",
+      }}
+    >
       <Tabbar.Item
         text="БАЗА"
         selected={active === "home"}
