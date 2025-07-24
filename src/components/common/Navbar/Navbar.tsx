@@ -23,7 +23,7 @@ export const NavBar: FC<NavBarProps> = ({
       style={{
         gap: "8px",
         height: "80px",
-        backgroundColor: "var(--bg-base)",
+        backgroundColor: "var(--surface-raised)",
         borderRadius: "12px",
       }}
     >
