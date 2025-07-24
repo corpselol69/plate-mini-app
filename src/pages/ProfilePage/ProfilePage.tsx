@@ -8,6 +8,14 @@ import {
   Button,
   SegmentedControl,
 } from "@telegram-apps/telegram-ui";
+import { useTheme } from "@/hooks/useTheme";
+import Icon from "@/components/common/Icon/Icon";
+import profileIcon from "@/static/icons/actions_28.svg";
+import helpIcon from "@/static/icons/discussion_28.svg";
+import notifyIcon from "@/static/icons/notifications_28.svg";
+import ligthThemeIcon from "@/static/icons/sun_low_24.svg";
+import darkThemeIcon from "@/static/icons/nightmode_28.svg";
+import avatarIcon from "@/static/icons/guard_28.svg";
 
 // Типы данных
 interface Order {
@@ -60,7 +68,7 @@ const ORDERS: Order[] = [
     total: 21500,
     deliveryType: "cdek",
     trackingNumber: "1234567890123",
-    address: "Москва, ул. Ленина, 15, пункт выдачи СДЭК",
+    address: "Москва, ул. Ленина, 15",
   },
   {
     id: "ORD-2024-002",
@@ -88,15 +96,15 @@ const ORDERS: Order[] = [
 const getStatusColor = (status: Order["status"]) => {
   switch (status) {
     case "completed":
-      return "#38a169";
+      return "var(--color-success)";
     case "shipped":
-      return "#3182ce";
+      return "var(--color-accent)"; // Burnt Amber - secondary CTA
     case "processing":
-      return "#d69e2e";
+      return "var(--color-gray)"; // Desert Sage - neutral/disabled
     case "cancelled":
-      return "#e53e3e";
+      return "var(--military-error)"; // Armor Red - error state
     default:
-      return "#4a5568";
+      return "var(--military-secondary)"; // Evergreen Shade
   }
 };
 
@@ -117,6 +125,7 @@ const getStatusText = (status: Order["status"]) => {
 
 export const ProfilePage: FC = () => {
   const [activeTab, setActiveTab] = useState<"orders" | "info">("orders");
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <Page back>
@@ -126,58 +135,42 @@ export const ProfilePage: FC = () => {
           flexDirection: "column",
           gap: 0,
           minHeight: "100vh",
-          backgroundColor: "#1a1a1a",
         }}
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            backgroundColor:
-              "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
-            background: "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
-            padding: "20px 16px",
-            borderBottom: "2px solid #4a5568",
+            padding: "16px",
             position: "relative",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "3px",
-              background:
-                "linear-gradient(90deg, #38a169 0%, #68d391 50%, #38a169 100%)",
-            }}
-          />
-
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div
               style={{
                 width: "80px",
                 height: "80px",
                 borderRadius: "50%",
-                backgroundColor: "#4a5568",
+                backgroundColor: "var(--surface-raised)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "3px solid #38a169",
                 fontSize: "32px",
               }}
             >
-              🪖
+              <Icon
+                src={USER_PROFILE.avatar || avatarIcon}
+                style={{ width: "70px", height: "70px" }}
+                color="active"
+              />
             </div>
             <div style={{ flex: 1 }}>
               <Title
                 style={{
-                  color: "#e2e8f0",
                   fontSize: "20px",
                   fontWeight: "700",
-                  textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   letterSpacing: "0.5px",
-                  marginBottom: "4px",
+                  color: "var(--text-accent)",
                 }}
               >
                 {USER_PROFILE.name}
@@ -185,7 +178,7 @@ export const ProfilePage: FC = () => {
 
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--text-secondary)",
                   fontSize: "12px",
                   marginTop: "2px",
                 }}
@@ -193,10 +186,35 @@ export const ProfilePage: FC = () => {
                 {USER_PROFILE.address}
               </Text>
             </div>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                backgroundColor: "transparent",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                fontSize: "18px",
+                transition: "all 0.3s ease",
+                border: "1px solid var(--btn-secondary-border)",
+              }}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            >
+              {theme === "dark" ? (
+                <Icon src={ligthThemeIcon} color="active" />
+              ) : (
+                <Icon src={darkThemeIcon} color="active" />
+              )}
+            </button>
           </div>
 
           {/* Статистика пользователя */}
-          <div
+          {/* <div
             style={{
               display: "flex",
               gap: "12px",
@@ -206,28 +224,27 @@ export const ProfilePage: FC = () => {
             <div
               style={{
                 flex: 1,
-                backgroundColor: "#1a202c",
+                backgroundColor: "var(--military-darker)",
                 padding: "16px 12px",
                 borderRadius: "12px",
-                border: "2px solid #38a169",
                 textAlign: "center",
                 position: "relative",
-                boxShadow: "0 4px 12px rgba(56, 161, 105, 0.2)",
+                boxShadow: "0 4px 12px rgba(4, 50, 34, 0.2)",
               }}
             >
               <Text
                 style={{
-                  color: "#68d391",
+                  color: "var(--military-accent)",
                   fontSize: "20px",
                   fontWeight: "700",
-                  textShadow: "0 2px 4px rgba(104, 211, 145, 0.3)",
+                  textShadow: "0 2px 4px rgba(225, 137, 50, 0.3)",
                 }}
               >
                 {USER_PROFILE.totalOrders}{" "}
               </Text>
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--military-gray)",
                   fontSize: "10px",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -241,28 +258,27 @@ export const ProfilePage: FC = () => {
             <div
               style={{
                 flex: 1,
-                backgroundColor: "#1a202c",
+                backgroundColor: "var(--military-darker)",
                 padding: "16px 12px",
                 borderRadius: "12px",
-                border: "2px solid #38a169",
                 textAlign: "center",
                 position: "relative",
-                boxShadow: "0 4px 12px rgba(56, 161, 105, 0.2)",
+                boxShadow: "0 4px 12px rgba(4, 50, 34, 0.2)",
               }}
             >
               <Text
                 style={{
-                  color: "#68d391",
+                  color: "var(--military-accent)",
                   fontSize: "20px",
                   fontWeight: "700",
-                  textShadow: "0 2px 4px rgba(104, 211, 145, 0.3)",
+                  textShadow: "0 2px 4px rgba(225, 137, 50, 0.3)",
                 }}
               >
                 {(USER_PROFILE.totalSpent / 1000).toFixed(0)}К{" "}
               </Text>
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--military-gray)",
                   fontSize: "10px",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -273,57 +289,52 @@ export const ProfilePage: FC = () => {
                 Потрачено, ₽
               </Text>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div
           style={{
-            padding: "16px",
-            backgroundColor: "#2d3748",
-            borderBottom: "1px solid #4a5568",
+            padding: "0 16px",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#1a202c",
-              padding: "4px",
-              borderRadius: "8px",
-              border: "1px solid #4a5568",
-            }}
-          >
-            <SegmentedControl>
-              <SegmentedControl.Item
-                selected={activeTab === "orders"}
-                onClick={() => setActiveTab("orders")}
-                style={{
-                  backgroundColor:
-                    activeTab === "orders" ? "#38a169" : "transparent",
-                  color: activeTab === "orders" ? "white" : "#a0aec0",
-                  fontWeight: "700",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontSize: "14px",
-                }}
-              >
-                📦 ЗАКАЗЫ
-              </SegmentedControl.Item>
-              <SegmentedControl.Item
-                selected={activeTab === "info"}
-                onClick={() => setActiveTab("info")}
-                style={{
-                  backgroundColor:
-                    activeTab === "info" ? "#38a169" : "transparent",
-                  color: activeTab === "info" ? "white" : "#a0aec0",
-                  fontWeight: "700",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                  fontSize: "14px",
-                }}
-              >
-                👤 ПРОФИЛЬ
-              </SegmentedControl.Item>
-            </SegmentedControl>
-          </div>
+          <SegmentedControl style={{ backgroundColor: "var(--bg-subtle)" }}>
+            <SegmentedControl.Item
+              selected={activeTab === "orders"}
+              onClick={() => setActiveTab("orders")}
+              style={{
+                backgroundColor:
+                  activeTab === "orders" ? "var(--brand)" : "transparent",
+                color:
+                  activeTab === "orders"
+                    ? "var(--btn-primary-text)"
+                    : "var(--text-gray)",
+                fontWeight: "700",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                fontSize: "14px",
+              }}
+            >
+              ЗАКАЗЫ
+            </SegmentedControl.Item>
+            <SegmentedControl.Item
+              selected={activeTab === "info"}
+              onClick={() => setActiveTab("info")}
+              style={{
+                backgroundColor:
+                  activeTab === "info" ? "var(--brand)" : "transparent",
+                color:
+                  activeTab === "info"
+                    ? "var(--btn-primary-text)"
+                    : "var(--text-gray)",
+                fontWeight: "700",
+                textTransform: "uppercase",
+                letterSpacing: "1px",
+                fontSize: "14px",
+              }}
+            >
+              ПРОФИЛЬ
+            </SegmentedControl.Item>
+          </SegmentedControl>
         </div>
 
         {/* Основной контент */}
@@ -337,9 +348,8 @@ export const ProfilePage: FC = () => {
                   key={order.id}
                   style={{
                     padding: "16px",
-                    backgroundColor: "#2d3748",
-                    border: "1px solid #4a5568",
                     borderRadius: "12px",
+                    backgroundColor: "var(--bg-subtle)",
                   }}
                 >
                   <div
@@ -353,7 +363,7 @@ export const ProfilePage: FC = () => {
                     <div>
                       <Text
                         style={{
-                          color: "#e2e8f0",
+                          color: "var(--text-primary)",
                           fontSize: "16px",
                           fontWeight: "700",
                           textTransform: "uppercase",
@@ -364,7 +374,7 @@ export const ProfilePage: FC = () => {
                       </Text>
                       <Text
                         style={{
-                          color: "#a0aec0",
+                          color: "var(--text-secondary)",
                           fontSize: "12px",
                           marginTop: "2px",
                         }}
@@ -390,10 +400,9 @@ export const ProfilePage: FC = () => {
 
                   <div
                     style={{
-                      backgroundColor: "#1a202c",
+                      backgroundColor: "var(--bg-base)",
                       padding: "12px",
                       borderRadius: "8px",
-                      border: "1px solid #4a5568",
                       marginBottom: "12px",
                     }}
                   >
@@ -411,7 +420,7 @@ export const ProfilePage: FC = () => {
                         <div>
                           <Text
                             style={{
-                              color: "#e2e8f0",
+                              color: "var(--text-accent)",
                               fontSize: "14px",
                               fontWeight: "600",
                             }}
@@ -420,7 +429,7 @@ export const ProfilePage: FC = () => {
                           </Text>
                           <Text
                             style={{
-                              color: "#a0aec0",
+                              color: "var(--text-secondary)",
                               fontSize: "12px",
                             }}
                           >
@@ -429,7 +438,7 @@ export const ProfilePage: FC = () => {
                         </div>
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--text-accent)",
                             fontSize: "14px",
                             fontWeight: "700",
                           }}
@@ -443,10 +452,7 @@ export const ProfilePage: FC = () => {
                   {/* Доставка и трекинг */}
                   <div
                     style={{
-                      backgroundColor: "#1a202c",
-                      padding: "12px",
                       borderRadius: "8px",
-                      border: "1px solid #4a5568",
                       marginBottom: "12px",
                     }}
                   >
@@ -459,17 +465,16 @@ export const ProfilePage: FC = () => {
                     >
                       <Text
                         style={{
-                          color: "#68d391",
+                          color: "var(--text-secondary)",
                           fontSize: "12px",
                           fontWeight: "600",
-                          textTransform: "uppercase",
                         }}
                       >
                         ТИП ДОСТАВКИ:
                       </Text>
                       <Text
                         style={{
-                          color: "#e2e8f0",
+                          color: "var(--text-accent)",
                           fontSize: "12px",
                           fontWeight: "700",
                         }}
@@ -488,7 +493,7 @@ export const ProfilePage: FC = () => {
                       >
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--text-secondary)",
                             fontSize: "12px",
                             fontWeight: "600",
                             textTransform: "uppercase",
@@ -498,7 +503,7 @@ export const ProfilePage: FC = () => {
                         </Text>
                         <Text
                           style={{
-                            color: "#3182ce",
+                            color: "var(--blue)",
                             fontSize: "12px",
                             fontWeight: "700",
                             fontFamily: "monospace",
@@ -517,7 +522,7 @@ export const ProfilePage: FC = () => {
                     >
                       <Text
                         style={{
-                          color: "#68d391",
+                          color: "var(--text-secondary)",
                           fontSize: "12px",
                           fontWeight: "600",
                           textTransform: "uppercase",
@@ -527,7 +532,7 @@ export const ProfilePage: FC = () => {
                       </Text>
                       <Text
                         style={{
-                          color: "#e2e8f0",
+                          color: "var(--text-accent)",
                           fontSize: "12px",
                           textAlign: "right",
                           maxWidth: "180px",
@@ -548,22 +553,22 @@ export const ProfilePage: FC = () => {
                   >
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--text-primary)",
                         fontSize: "18px",
                         fontWeight: "700",
-                        textTransform: "uppercase",
+
                         letterSpacing: "1px",
                       }}
                     >
-                      ИТОГО: {order.total.toLocaleString()} ₽
+                      {order.total.toLocaleString()} ₽
                     </Text>
 
                     {order.trackingNumber && (
                       <Button
                         size="s"
                         style={{
-                          backgroundColor: "#3182ce",
-                          color: "white",
+                          backgroundColor: "var(--blue)",
+                          color: "var(--white)",
                           fontWeight: "600",
                           textTransform: "uppercase",
                           letterSpacing: "0.5px",
@@ -572,7 +577,7 @@ export const ProfilePage: FC = () => {
                           fontSize: "12px",
                         }}
                       >
-                        🚚 ОТСЛЕДИТЬ
+                        Отследить
                       </Button>
                     )}
                   </div>
@@ -585,33 +590,25 @@ export const ProfilePage: FC = () => {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "16px" }}
             >
-              <Card
-                style={{
-                  padding: "16px",
-                  backgroundColor: "#2d3748",
-                  border: "1px solid #4a5568",
-                  borderRadius: "12px",
-                }}
-              >
+              <div>
                 <Title
                   style={{
-                    color: "#68d391",
+                    color: "var(--text-primary)",
                     fontSize: "16px",
                     fontWeight: "700",
                     textTransform: "uppercase",
                     letterSpacing: "1px",
-                    marginBottom: "12px",
+                    marginBottom: "10px",
                   }}
                 >
-                  📋 ОСНОВНЫЕ ДАННЫЕ
+                  ОСНОВНЫЕ ДАННЫЕ
                 </Title>
 
                 <div
                   style={{
-                    backgroundColor: "#1a202c",
+                    backgroundColor: "var(--bg-subtle)",
                     padding: "12px",
                     borderRadius: "8px",
-                    border: "1px solid #4a5568",
                   }}
                 >
                   <div
@@ -623,7 +620,7 @@ export const ProfilePage: FC = () => {
                   >
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--text-secondary)",
                         fontSize: "14px",
                         fontWeight: "600",
                       }}
@@ -632,7 +629,7 @@ export const ProfilePage: FC = () => {
                     </Text>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-accent)",
                         fontSize: "14px",
                         fontWeight: "700",
                       }}
@@ -649,7 +646,7 @@ export const ProfilePage: FC = () => {
                   >
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--text-secondary)",
                         fontSize: "14px",
                         fontWeight: "600",
                       }}
@@ -658,7 +655,7 @@ export const ProfilePage: FC = () => {
                     </Text>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-accent)",
                         fontSize: "14px",
                         fontWeight: "700",
                         textAlign: "right",
@@ -676,7 +673,7 @@ export const ProfilePage: FC = () => {
                   >
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--text-secondary)",
                         fontSize: "14px",
                         fontWeight: "600",
                       }}
@@ -685,7 +682,7 @@ export const ProfilePage: FC = () => {
                     </Text>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-accent)",
                         fontSize: "14px",
                         fontWeight: "700",
                         fontFamily: "monospace",
@@ -695,20 +692,13 @@ export const ProfilePage: FC = () => {
                     </Text>
                   </div>
                 </div>
-              </Card>
+              </div>
 
               {/* Настройки аккаунта */}
-              <Card
-                style={{
-                  padding: "16px",
-                  backgroundColor: "#2d3748",
-                  border: "1px solid #4a5568",
-                  borderRadius: "12px",
-                }}
-              >
+              <div>
                 <Title
                   style={{
-                    color: "#68d391",
+                    color: "var(--text-primary)",
                     fontSize: "16px",
                     fontWeight: "700",
                     textTransform: "uppercase",
@@ -716,7 +706,7 @@ export const ProfilePage: FC = () => {
                     marginBottom: "12px",
                   }}
                 >
-                  ⚙️ НАСТРОЙКИ
+                  НАСТРОЙКИ
                 </Title>
 
                 <div
@@ -729,50 +719,53 @@ export const ProfilePage: FC = () => {
                   <Button
                     size="m"
                     style={{
-                      backgroundColor: "#4a5568",
-                      color: "#e2e8f0",
+                      backgroundColor: "var(--bg-subtle)",
+                      color: "var(--text-primary)",
                       fontWeight: "600",
                       textTransform: "uppercase",
                       letterSpacing: "0.5px",
-                      border: "1px solid #68d391",
                       borderRadius: "8px",
                       justifyContent: "flex-start",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
                     }}
+                    before={<Icon src={profileIcon} color="active" />}
                   >
-                    📝 ИЗМЕНИТЬ ДАННЫЕ
+                    ИЗМЕНИТЬ ДАННЫЕ
                   </Button>
                   <Button
                     size="m"
                     style={{
-                      backgroundColor: "#4a5568",
-                      color: "#e2e8f0",
+                      backgroundColor: "var(--bg-subtle)",
+                      color: "var(--text-primary)",
                       fontWeight: "600",
                       textTransform: "uppercase",
                       letterSpacing: "0.5px",
-                      border: "1px solid #68d391",
                       borderRadius: "8px",
                       justifyContent: "flex-start",
                     }}
+                    before={<Icon src={notifyIcon} color="active" />}
                   >
-                    🔔 УВЕДОМЛЕНИЯ
+                    УВЕДОМЛЕНИЯ
                   </Button>
                   <Button
                     size="m"
                     style={{
-                      backgroundColor: "#4a5568",
-                      color: "#e2e8f0",
+                      backgroundColor: "var(--bg-subtle)",
+                      color: "var(--text-primary)",
                       fontWeight: "600",
                       textTransform: "uppercase",
                       letterSpacing: "0.5px",
-                      border: "1px solid #68d391",
                       borderRadius: "8px",
                       justifyContent: "flex-start",
                     }}
+                    before={<Icon src={helpIcon} color="active" />}
                   >
-                    📞 ПОДДЕРЖКА
+                    ПОДДЕРЖКА
                   </Button>
                 </div>
-              </Card>
+              </div>
             </div>
           )}
         </div>
