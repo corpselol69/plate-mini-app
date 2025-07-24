@@ -19,55 +19,40 @@ export const IndexPage: FC = () => {
           flexDirection: "column",
           gap: 0,
           minHeight: "100vh",
-          backgroundColor: "#1a1a1a",
         }}
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            backgroundColor:
-              "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
-            background: "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
-            padding: "20px 16px",
-            borderBottom: "2px solid #4a5568",
+            background:
+              "linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg-base) 100%)",
+            padding: "16px",
+            borderRadius: "0 0 12px 12px",
             position: "relative",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "3px",
-              background:
-                "linear-gradient(90deg, #38a169 0%, #68d391 50%, #38a169 100%)",
-            }}
-          />
-
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Image
               src={logo}
               style={{
-                boxShadow: "0 0 20px rgba(56, 161, 105, 0.3)",
                 width: "60px",
                 minWidth: "60px",
                 height: "60px",
                 backgroundColor: "transparent",
-                border: "2px solid #38a169",
                 borderRadius: "50%",
+                border: "none",
+                boxShadow: "none",
               }}
             />
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <Title
                 weight="1"
                 style={{
-                  color: "#e2e8f0",
+                  color: "var(--text-primary)",
                   fontSize: "20px",
                   fontWeight: "700",
-                  textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                   letterSpacing: "0.5px",
                 }}
               >
@@ -75,7 +60,7 @@ export const IndexPage: FC = () => {
               </Title>
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--text-secondary)",
                   fontSize: "14px",
                   fontWeight: "500",
                   textTransform: "uppercase",
@@ -92,11 +77,9 @@ export const IndexPage: FC = () => {
           <Card
             style={{
               padding: 0,
-              backgroundColor: "#2d3748",
-              border: "1px solid #4a5568",
+              backgroundColor: "var(--bg-subtle)",
               borderRadius: "12px",
               overflow: "hidden",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
             }}
             type="plain"
           >
@@ -116,8 +99,8 @@ export const IndexPage: FC = () => {
                   position: "absolute",
                   top: "12px",
                   right: "12px",
-                  backgroundColor: "#38a169",
-                  color: "white",
+                  backgroundColor: "var(--color-success)",
+                  color: "var(--white)",
                   padding: "6px 12px",
                   fontSize: "12px",
                   fontWeight: "700",
@@ -135,10 +118,10 @@ export const IndexPage: FC = () => {
               <Title
                 weight="2"
                 style={{
-                  color: "#e2e8f0",
+                  color: "var(--text-primary)",
                   fontSize: "24px",
                   fontWeight: "700",
-                  marginBottom: "12px",
+                  marginBottom: "8px",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                 }}
@@ -148,10 +131,9 @@ export const IndexPage: FC = () => {
 
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--text-secondary)",
                   fontSize: "16px",
                   lineHeight: "1.5",
-                  marginBottom: "20px",
                 }}
               >
                 Сертифицированная защита класса IIIA. Индивидуальная или парная
@@ -160,11 +142,11 @@ export const IndexPage: FC = () => {
 
               <div
                 style={{
-                  backgroundColor: "#1a202c",
-                  padding: "16px",
+                  backgroundColor: "var(--bg-base)",
+                  padding: "12px",
                   borderRadius: "8px",
-                  marginBottom: "20px",
-                  border: "1px solid #4a5568",
+                  marginBottom: "8px",
+                  marginTop: "8px",
                 }}
               >
                 <div
@@ -176,7 +158,7 @@ export const IndexPage: FC = () => {
                 >
                   <Text
                     style={{
-                      color: "#68d391",
+                      color: "var(--text-secondary)",
                       fontSize: "14px",
                       fontWeight: "600",
                     }}
@@ -185,7 +167,7 @@ export const IndexPage: FC = () => {
                   </Text>
                   <Text
                     style={{
-                      color: "#e2e8f0",
+                      color: "var(--text-accent)",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
@@ -202,7 +184,7 @@ export const IndexPage: FC = () => {
                 >
                   <Text
                     style={{
-                      color: "#68d391",
+                      color: "var(--text-secondary)",
                       fontSize: "14px",
                       fontWeight: "600",
                     }}
@@ -211,7 +193,7 @@ export const IndexPage: FC = () => {
                   </Text>
                   <Text
                     style={{
-                      color: "#e2e8f0",
+                      color: "var(--text-accent)",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
@@ -224,7 +206,7 @@ export const IndexPage: FC = () => {
                 >
                   <Text
                     style={{
-                      color: "#68d391",
+                      color: "var(--text-secondary)",
                       fontSize: "14px",
                       fontWeight: "600",
                     }}
@@ -233,7 +215,7 @@ export const IndexPage: FC = () => {
                   </Text>
                   <Text
                     style={{
-                      color: "#68d391",
+                      color: "var(--color-success)",
                       fontSize: "14px",
                       fontWeight: "700",
                     }}
@@ -244,22 +226,23 @@ export const IndexPage: FC = () => {
               </div>
 
               <Button
-                size="l"
+                size="m"
                 onClick={handleBuyClick}
                 style={{
-                  backgroundColor: "#38a169",
-                  color: "white",
+                  backgroundColor: "var(--btn-primary-bg)",
+                  color: "var(--btn-primary-text)",
                   fontWeight: "700",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
                   border: "none",
                   borderRadius: "8px",
                   padding: "16px",
-                  boxShadow: "0 4px 16px rgba(56, 161, 105, 0.3)",
+                  boxShadow: "0 4px 16px rgba(170, 191, 173, 0.3)",
                   transition: "all 0.2s ease",
+                  width: "100%",
                 }}
               >
-                ПЕРЕЙТИ К ВЫБОРУ
+                Подробнее
               </Button>
             </div>
           </Card>
@@ -267,15 +250,14 @@ export const IndexPage: FC = () => {
 
         <div
           style={{
-            backgroundColor: "#1a202c",
+            backgroundColor: "var(--bg-subtle)",
             padding: "16px",
-            borderTop: "1px solid #4a5568",
             textAlign: "center",
           }}
         >
           <Text
             style={{
-              color: "#68d391",
+              color: "var(--color-accent)",
               fontSize: "14px",
               fontWeight: "600",
               textTransform: "uppercase",
