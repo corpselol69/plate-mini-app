@@ -26,7 +26,7 @@ export const NavBar: FC<NavBarProps> = ({
         onClick={() => onNavigate("home")}
         style={{
           flex: 1,
-          color: active === "home" ? "var(--military-secondary)" : undefined,
+          color: active === "home" ? "var(--brand)" : undefined,
         }}
       >
         <Icon src={storeIcon} isActive={active === "home"} />
@@ -38,7 +38,7 @@ export const NavBar: FC<NavBarProps> = ({
         onClick={() => onNavigate("cart")}
         style={{
           flex: 1,
-          color: active === "cart" ? "var(--military-secondary)" : undefined,
+          color: active === "cart" ? "var(--brand)" : undefined,
         }}
       >
         <div style={{ position: "relative", margin: "0 4px" }}>
@@ -73,7 +73,7 @@ export const NavBar: FC<NavBarProps> = ({
         onClick={() => onNavigate("profile")}
         style={{
           flex: 1,
-          color: active === "profile" ? "var(--military-secondary)" : undefined,
+          color: active === "profile" ? "var(--brand)" : undefined,
         }}
       >
         <Avatar
