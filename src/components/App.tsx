@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { Navigate, Route, Routes, HashRouter } from "react-router-dom";
 import {
   retrieveLaunchParams,
@@ -19,6 +19,14 @@ function renderRoutes(list = routes): React.ReactNode {
 export function App() {
   const lp = useMemo(() => retrieveLaunchParams(), []);
   const isDark = useSignal(isMiniAppDark);
+
+  // Синхронизируем тему с CSS-переменными
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "dark" : "light"
+    );
+  }, [isDark]);
 
   return (
     <AppRoot
