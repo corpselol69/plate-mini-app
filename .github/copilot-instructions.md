@@ -18,13 +18,14 @@ This is a Telegram Mini App built with React/TypeScript for selling military arm
 ```tsx
 // All pages follow this pattern:
 <Page back={true | false}>
-  <div style={{ minHeight: "100vh", backgroundColor: "#1a1a1a" }}>
+  <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-base)" }}>
     {/* Military header with gradient */}
     <div
       style={{
-        background: "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
+        background:
+          "linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg-base) 100%)",
         padding: "20px 16px",
-        borderBottom: "2px solid #4a5568",
+        borderBottom: "2px solid var(--brand)",
       }}
     >
       {/* Green accent line at top */}
@@ -32,7 +33,7 @@ This is a Telegram Mini App built with React/TypeScript for selling military arm
         style={{
           height: "3px",
           background:
-            "linear-gradient(90deg, #38a169 0%, #68d391 50%, #38a169 100%)",
+            "linear-gradient(90deg, var(--brand) 0%, var(--color-accent) 50%, var(--brand) 100%)",
         }}
       />
       {/* Page content */}
@@ -41,18 +42,72 @@ This is a Telegram Mini App built with React/TypeScript for selling military arm
 </Page>
 ```
 
-### Military Design System
+### Design System & Color Tokens
 
-#### Color Variables (in `src/index.css`)
+#### Functional Color Variables (in `src/index.css`)
 
 ```css
 :root {
-  --military-primary: #38a169; /* Tactical green */
-  --military-secondary: #68d391; /* Light green */
-  --military-dark: #1a202c; /* Dark background */
-  --military-gray: #2d3748; /* Card backgrounds */
-  --military-light: #e2e8f0; /* Text color */
-  --military-accent: #4a5568; /* Borders */
+  /* ОСНОВНЫЕ ПЛОСКОСТИ */
+  --bg-base: #0d2117; /* Основной фон приложения */
+  --bg-subtle: #20382d; /* Фон карточек, модальных окон */
+  --surface-raised: #595046; /* Поднятые элементы (аватары, кнопки) */
+
+  /* ТЕКСТ И ТИПОГРАФИКА */
+  --text-primary: #f2e4d8; /* Основной текст (заголовки, важная информация) */
+  --text-secondary: #aabfad; /* Вторичный текст (описания, лейблы) */
+  --text-gray: #8e968f; /* Неактивные элементы, placeholder */
+  --text-accent: #ffffff; /* Акцентный текст (имена, цены) */
+  --text-disabled: rgba(170, 191, 173, 0.4); /* Отключенный текст */
+
+  /* ИКОНКИ */
+  --icon-default: var(--text-secondary); /* Иконки по умолчанию */
+  --icon-disabled: #595046; /* Отключенные иконки */
+
+  /* БРЕНД И АКТИВНЫЕ ЭЛЕМЕНТЫ */
+  --brand: #aabfad; /* Основной бренд (активные табы, акценты) */
+  --focus-ring: rgba(170, 191, 173, 0.5); /* Кольцо фокуса */
+
+  /* КНОПКИ */
+  --btn-primary-bg: var(--brand); /* Фон основных кнопок */
+  --btn-primary-text: #022601; /* Текст основных кнопок */
+  --btn-primary-bg-hover: #b2c5b5; /* Ховер основных кнопок */
+  --btn-primary-bg-active: #99ab9b; /* Нажатие основных кнопок */
+
+  --btn-secondary-border: var(--brand); /* Границы вторичных кнопок */
+  --btn-secondary-text: var(--brand); /* Текст вторичных кнопок */
+  --btn-secondary-bg-hover: rgba(170, 191, 173, 0.1); /* Ховер вторичных */
+
+  /* СТАТУСЫ И СОСТОЯНИЯ */
+  --color-success: #5c8b58; /* Успешные операции (completed заказы) */
+  --color-accent: #e18932; /* Акценты (shipped заказы, badges) */
+  --color-gray: #8e968f; /* Нейтральные состояния (processing) */
+
+  /* УТИЛИТАРНЫЕ ЦВЕТА */
+  --white: #ffffff; /* Белый для контраста */
+  --black: #000000; /* Черный для контраста */
+  --blue: #3182ce; /* Синий для ссылок, трекинга */
+}
+
+/* СВЕТЛАЯ ТЕМА */
+[data-theme="light"] {
+  --bg-base: #f8f6f3; /* Светлый фон */
+  --bg-subtle: #bcdcce6f; /* Светлые карточки */
+  --surface-raised: #ffffff; /* Белые поднятые элементы */
+  --divider: rgba(13, 33, 23, 0.08); /* Разделители */
+
+  --text-primary: #0d2117cd; /* Темный основной текст */
+  --text-secondary: #595046; /* Темный вторичный текст */
+  --text-accent: #081a11; /* Темный акцентный текст */
+  --text-disabled: rgba(89, 80, 70, 0.4);
+
+  --brand: #2d5241; /* Темнее для светлой темы */
+  --focus-ring: rgba(13, 33, 23, 0.45);
+
+  --btn-primary-text: #ffffff;
+  --btn-primary-bg-hover: #13311f;
+  --btn-primary-bg-active: #081a11b0;
+  --btn-secondary-bg-hover: rgba(13, 33, 23, 0.07);
 }
 ```
 
@@ -62,12 +117,58 @@ This is a Telegram Mini App built with React/TypeScript for selling military arm
 - **Military terminology**: "ОПЕРАЦИИ ПО СНАБЖЕНИЮ" (operations), "ВОЕННЫЙ СТАНДАРТ" (military standard)
 - **Status badges**: Uppercase with letter spacing, colored by status
 
+#### Theme System
+
+```tsx
+// Theme toggle implementation
+const useTheme = () => {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
+  return { theme, toggleTheme };
+};
+```
+
 #### Component Styling Conventions
 
-- **Cards**: Dark backgrounds with military accent borders
-- **Buttons**: Green military theme with uppercase text
-- **Badges**: Positioned absolutely with military colors and shadows
-- **Technical specs**: Grid layout with green labels and white values
+**Backgrounds & Surfaces:**
+
+- **Page backgrounds**: `var(--bg-base)` - основной фон приложения
+- **Card backgrounds**: `var(--bg-subtle)` - карточки, модальные окна
+- **Raised elements**: `var(--surface-raised)` - аватары, поднятые кнопки
+
+**Typography:**
+
+- **Main headers**: `var(--text-primary)` + `textTransform: "uppercase"` + `letterSpacing: "0.5px"`
+- **Secondary text**: `var(--text-secondary)` - описания, лейблы полей
+- **Accent text**: `var(--text-accent)` - имена пользователей, цены
+- **Disabled text**: `var(--text-disabled)` - неактивные элементы
+
+**Interactive Elements:**
+
+- **Primary buttons**: `backgroundColor: var(--btn-primary-bg)`, `color: var(--btn-primary-text)`
+- **Secondary buttons**: `border: 1px solid var(--btn-secondary-border)`, `color: var(--btn-secondary-text)`
+- **Active tabs**: `backgroundColor: var(--brand)`, `color: var(--btn-primary-text)`
+- **Inactive tabs**: `backgroundColor: transparent`, `color: var(--text-gray)`
+
+**Status Indicators:**
+
+- **Success states**: `var(--color-success)` (completed заказы, успешные операции)
+- **Accent/Warning**: `var(--color-accent)` (shipped заказы, новые badge)
+- **Neutral/Processing**: `var(--color-gray)` (processing заказы)
+- **Links/Tracking**: `var(--blue)` (трек-номера, внешние ссылки)
+
+**Military Theme Elements:**
+
+- **Headers**: `textTransform: "uppercase"`, `letterSpacing: "0.5px"`, `fontWeight: "700"`
+- **Military terminology**: "ОПЕРАЦИИ ПО СНАБЖЕНИЮ", "ВОЕННЫЙ СТАНДАРТ"
+- **Status badges**: Uppercase with letter spacing, colored by status
+- **Always use CSS variables** for colors to support theme switching
 
 ### Data Structure Patterns
 
@@ -137,10 +238,10 @@ src/
 
 ```tsx
 const getStatusColor = (status: Order["status"]) => ({
-  completed: "#38a169", // Military green
-  shipped: "#3182ce", // Blue
-  processing: "#d69e2e", // Yellow
-  cancelled: "#e53e3e", // Red
+  completed: "var(--color-success)", // Успешные заказы
+  shipped: "var(--color-accent)", // Заказы в пути
+  processing: "var(--color-gray)", // Заказы в обработке
+  cancelled: "var(--military-error)", // Отмененные заказы
 });
 ```
 
@@ -150,8 +251,18 @@ Global CSS overrides in `src/index.css` to apply military theme to Telegram UI c
 
 ```css
 .telegram-ui-button {
-  background-color: var(--military-primary) !important;
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
   text-transform: uppercase !important;
+}
+
+.telegram-ui-card {
+  background-color: var(--bg-subtle) !important;
+  border: 1px solid var(--brand) !important;
+}
+
+.telegram-ui-text {
+  color: var(--text-secondary) !important;
 }
 ```
 

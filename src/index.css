@@ -1,20 +1,138 @@
 body {
-  background: #1a1a1a;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+  background: var(--bg-base);
   padding: 0;
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  color: #e2e8f0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", "Apple Color Emoji", "Helvetica Neue", sans-serif;
+  color: var(--text-primary);
 }
 
 :root {
-  --military-primary: #38a169;
-  --military-secondary: #68d391;
-  --military-dark: #1a202c;
-  --military-darker: #171923;
-  --military-gray: #2d3748;
-  --military-light: #e2e8f0;
-  --military-accent: #4a5568;
+  /* базовые плоскости */
+  --bg-base: #0D2117;
+  --bg-subtle: #20382d;
+  --surface-raised: #595046;
+
+  /* текст и иконки */
+  --text-primary: #F2E4D8;
+  --text-secondary: #AABFAD;
+  --text-gray: #8E968F;
+  --text-accent: #FFFFFF;
+  --text-disabled: rgba(170, 191, 173, 0.40);
+  --icon-default: var(--text-secondary);
+  --icon-disabled: #595046;
+
+  /* акценты и действия */
+  --brand: #AABFAD;
+  --focus-ring: rgba(170, 191, 173, 0.50);
+
+  /* кнопки */
+  --btn-primary-bg: var(--brand);
+  --btn-primary-text: #022601;
+  --btn-primary-bg-hover: #B2C5B5;
+  /* +10 % */
+  --btn-primary-bg-active: #99AB9B;
+  /* −10 % */
+
+  --btn-secondary-border: var(--brand);
+  --btn-secondary-text: var(--brand);
+  --btn-secondary-bg-hover: rgba(170, 191, 173, 0.10);
+
+  --white: #FFFFFF;
+  --black: #000000;
+  --blue: #3182ce;
+  --color-success: #5C8B58;
+  --color-accent: #E18932;
+  --color-gray: #8E968F;
+
+  /* Dark Theme (default) */
+  --military-primary: #E18932;
+  /* Evergreen Shadow - CTA buttons, active icons */
+  --military-secondary: #145A40;
+  /* Evergreen Shade - hover, borders, shadows */
+  --military-dark: #043222;
+  /* Almond Cream - background, large cards */
+  --military-darker: #FBF5EF;
+  /* Charcoal - main text background */
+  --military-gray: #8E968F;
+  /* Desert Sage - disabled, secondary text */
+  --military-light: #FBF5EF;
+  /* Mist Grey - text on dark */
+  --military-accent: #E18932;
+  /* Burnt Amber - secondary CTA, badges */
+  --military-accent-hover: #C46B24;
+  /* Burnt Amber Shade - accent hover */
+  --military-success: #5C8B58;
+  /* Field Olive - success states */
+  --military-error: #C04A4A;
+  /* Armor Red - error states */
+  --military-neutral: #FBF5EF;
+  /* Almond Tint - cards, skeleton */
+}
+
+/* Light Theme */
+[data-theme="light"] {
+
+  /* базовые плоскости */
+  --bg-base: #F8F6F3;
+  --bg-subtle: #bcdcce6f;
+  --surface-raised: #FFFFFF;
+  --divider: rgba(13, 33, 23, 0.08);
+
+  /* текст и иконки */
+  --text-primary: #0d2117cd;
+  --text-secondary: #595046;
+  --text-gray: #8E968F;
+  --text-accent: #081A11;
+  --text-disabled: rgba(89, 80, 70, 0.40);
+  --icon-default: var(--text-secondary);
+  --icon-disabled: var(--text-disabled);
+
+  /* акцент + фокус */
+  --brand: #2d5241;
+  --focus-ring: rgba(13, 33, 23, 0.45);
+
+  /* кнопки */
+  --btn-primary-bg: var(--brand);
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-bg-hover: #13311F;
+  /* +8 % light */
+  --btn-primary-bg-active: #081a11b0;
+  /* –8 % */
+
+  --btn-secondary-border: var(--brand);
+  --btn-secondary-text: var(--brand);
+  --btn-secondary-bg-hover: rgba(13, 33, 23, 0.07);
+
+  /* utility */
+  --white: #FFFFFF;
+  --black: #000000;
+  --blue: #3182ce;
+  --color-success: #5C8B58;
+  --color-accent: #E18932;
+  --color-gray: #8E968F;
+
+  --military-primary: #043222;
+  /* Evergreen Shadow stays same */
+  --military-secondary: #06503A;
+  /* Evergreen Shade stays same */
+  --military-dark: #1F1F1F;
+  /* Charcoal - dark text on light */
+  --military-darker: #F6E9D9;
+  /* Almond Cream - light background */
+  --military-gray: #838382;
+  /* Almond Tint - light cards */
+  --military-light: #1F1F1F;
+  /* Charcoal - text on light */
+  --military-accent: #E18932;
+  /* Burnt Amber stays same */
+  --military-accent-hover: #C46B24;
+  /* Burnt Amber Shade stays same */
+  --military-success: #4B7547;
+  /* Field Olive stays same */
+  --military-error: #B13A3A;
+  /* Armor Red stays same */
+  --military-neutral: #A1B4AB;
+  /* Desert Sage - disabled on light */
 }
 
 .telegram-ui-card {
