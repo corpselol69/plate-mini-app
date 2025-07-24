@@ -8,6 +8,7 @@ import {
   Button,
   SegmentedControl,
   Image,
+  Divider,
 } from "@telegram-apps/telegram-ui";
 
 import plateImg from "@/static/placeholders/brone.webp";
@@ -96,7 +97,6 @@ export const CartPage: FC = () => {
           flexDirection: "column",
           gap: 0,
           minHeight: "100vh",
-          backgroundColor: "#1a1a1a",
         }}
       >
         {/* Военный хедер корзины */}
@@ -105,20 +105,20 @@ export const CartPage: FC = () => {
             display: "flex",
             flexDirection: "column",
             backgroundColor:
-              "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
-            background: "linear-gradient(135deg, #2d3748 0%, #1a202c 100%)",
+              "linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg-base) 100%)",
+            background:
+              "linear-gradient(135deg, var(--bg-subtle) 0%, var(--bg-base) 100%)",
             padding: "8px 16px",
-            borderBottom: "2px solid #4a5568",
+
             position: "relative",
           }}
         >
           <Title
             weight="1"
             style={{
-              color: "#e2e8f0",
+              color: "var(--text-primary)",
               fontSize: "24px",
               fontWeight: "700",
-              textShadow: "0 2px 4px rgba(0,0,0,0.5)",
               letterSpacing: "0.5px",
               textTransform: "uppercase",
             }}
@@ -127,7 +127,7 @@ export const CartPage: FC = () => {
           </Title>
           <Text
             style={{
-              color: "#a0aec0",
+              color: "var(--text-secondary)",
               fontSize: "14px",
               fontWeight: "500",
               textTransform: "uppercase",
@@ -145,26 +145,26 @@ export const CartPage: FC = () => {
             <Card
               style={{
                 padding: "40px 20px",
-                backgroundColor: "#2d3748",
-                border: "1px solid #4a5568",
+                backgroundColor: "var(--bg-subtle)",
+                border: "1px solid var(--brand)",
                 borderRadius: "12px",
                 textAlign: "center",
               }}
             >
               <Text
                 style={{
-                  color: "#a0aec0",
+                  color: "var(--text-secondary)",
                   fontSize: "18px",
                   fontWeight: "600",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
                 }}
               >
-                СКЛАД ПУСТ
+                Корзина пуста
               </Text>
               <Text
                 style={{
-                  color: "#68d391",
+                  color: "var(--color-accent)",
                   fontSize: "14px",
                   marginTop: "8px",
                 }}
@@ -173,152 +173,150 @@ export const CartPage: FC = () => {
               </Text>
             </Card>
           ) : (
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-            >
+            <div style={{ display: "flex", flexDirection: "column" }}>
               {items.map((item) => (
-                <Card
-                  key={item.id}
-                  style={{
-                    padding: 0,
-                    backgroundColor: "#2d3748",
-                    border: "1px solid #4a5568",
-                    borderRadius: "12px",
-                    overflow: "hidden",
-                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  <div
-                    style={{ padding: "16px", display: "flex", gap: "16px" }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <Image
-                        src={item.img}
-                        style={{
-                          width: "80px",
-                          height: "80px",
-                          objectFit: "cover",
-                          boxShadow: "none",
-                          borderRadius: "8px",
-                          border: "2px solid #4a5568",
-                        }}
-                      />
-                      {/* Военный бейдж */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "-8px",
-                          right: "-8px",
-                          backgroundColor: "#38a169",
-                          color: "white",
-                          padding: "4px 8px",
-                          fontSize: "10px",
-                          fontWeight: "700",
-                          textTransform: "uppercase",
-                          letterSpacing: "1px",
-                          borderRadius: "4px",
-                          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
-                        }}
-                      >
-                        ✓
-                      </div>
-                    </div>
-
+                <>
+                  <div key={item.id}>
                     <div
                       style={{
-                        flex: 1,
                         display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
+                        gap: "12px",
                       }}
                     >
-                      <Text
-                        style={{
-                          color: "#e2e8f0",
-                          fontSize: "16px",
-                          fontWeight: "600",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.5px",
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-
-                      {/* Технические данные */}
-                      <div
-                        style={{
-                          backgroundColor: "#1a202c",
-                          padding: "8px 12px",
-                          borderRadius: "6px",
-                          border: "1px solid #4a5568",
-                        }}
-                      >
+                      <div style={{ position: "relative" }}>
+                        <Image
+                          src={item.img}
+                          style={{
+                            width: "80px",
+                            height: "80px",
+                            objectFit: "cover",
+                            boxShadow: "none",
+                            borderRadius: "8px",
+                          }}
+                        />
+                        {/* Военный бейдж */}
                         <div
                           style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginBottom: "4px",
+                            position: "absolute",
+                            top: "-8px",
+                            right: "-8px",
+                            backgroundColor: "var(--color-success)",
+                            color: "var(--btn-primary-text)",
+                            padding: "4px 8px",
+                            fontSize: "10px",
+                            fontWeight: "700",
+                            textTransform: "uppercase",
+                            letterSpacing: "1px",
+                            borderRadius: "4px",
+                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
                           }}
                         >
-                          <Text
-                            style={{
-                              color: "#68d391",
-                              fontSize: "12px",
-                              fontWeight: "600",
-                            }}
-                          >
-                            КОЛ-ВО:
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#e2e8f0",
-                              fontSize: "12px",
-                              fontWeight: "700",
-                            }}
-                          >
-                            {item.qty} ШТ.
-                          </Text>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#68d391",
-                              fontSize: "12px",
-                              fontWeight: "600",
-                            }}
-                          >
-                            СТОИМОСТЬ:
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#e2e8f0",
-                              fontSize: "12px",
-                              fontWeight: "700",
-                            }}
-                          >
-                            {(item.price * item.qty).toLocaleString()} ₽
-                          </Text>
+                          ✓
                         </div>
                       </div>
 
                       <div
                         style={{
+                          flex: 1,
                           display: "flex",
-                          alignItems: "center",
+                          flexDirection: "column",
                           gap: "8px",
-                          marginTop: "8px",
                         }}
                       >
-                        {/* Здесь будут кнопки для изменения количества */}
+                        <Text
+                          style={{
+                            color: "var(--text-primary)",
+                            fontSize: "16px",
+                            fontWeight: "600",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          {item.title}
+                        </Text>
+
+                        {/* Технические данные */}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "4px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Text
+                              style={{
+                                color: "var(--text-secondary)",
+                                fontSize: "12px",
+                                fontWeight: "600",
+                              }}
+                            >
+                              КОЛ-ВО:
+                            </Text>
+                            <Text
+                              style={{
+                                color: "var(--text-primary)",
+                                fontSize: "12px",
+                                fontWeight: "700",
+                              }}
+                            >
+                              {item.qty} ШТ.
+                            </Text>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Text
+                              style={{
+                                color: "var(--text-secondary)",
+                                fontSize: "12px",
+                                fontWeight: "600",
+                              }}
+                            >
+                              СТОИМОСТЬ:
+                            </Text>
+                            <Text
+                              style={{
+                                color: "var(--text-primary)",
+                                fontSize: "12px",
+                                fontWeight: "700",
+                              }}
+                            >
+                              {(item.price * item.qty).toLocaleString()} ₽
+                            </Text>
+                          </div>
+                        </div>
+
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            marginTop: "8px",
+                          }}
+                        >
+                          {/* Здесь будут кнопки для изменения количества */}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </Card>
+                  {items.length > 1 && (
+                    <Divider
+                      style={{
+                        backgroundColor: "var(--text-secondary)",
+                        margin: "8px 0",
+                      }}
+                    />
+                  )}
+                </>
               ))}
             </div>
           )}
@@ -327,101 +325,92 @@ export const CartPage: FC = () => {
           {items.length > 0 && (
             <div
               style={{
-                marginTop: "24px",
+                marginTop: "12px",
               }}
             >
               <Text
                 weight="2"
                 style={{
-                  color: "#e2e8f0",
+                  color: "var(--text-primary)",
                   fontSize: "18px",
                   fontWeight: "700",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
-                  marginBottom: "16px",
                 }}
               >
                 СПОСОБ ДОСТАВКИ
               </Text>
 
-              <div
+              <SegmentedControl
                 style={{
-                  backgroundColor: "#1a202c",
-                  padding: "4px",
-                  borderRadius: "8px",
-                  border: "1px solid #4a5568",
+                  backgroundColor: "var(--bg-subtle)",
+                  marginTop: "12px",
                 }}
               >
-                <SegmentedControl>
-                  <SegmentedControl.Item
-                    selected={delivery === "pickup"}
-                    onClick={() => {
-                      setDelivery("pickup");
-                      setSelectedCdekPoint(""); // Сбрасываем выбор пункта СДЭК
-                    }}
-                    style={{
-                      backgroundColor:
-                        delivery === "pickup" ? "#38a169" : "transparent",
-                      color: delivery === "pickup" ? "white" : "#a0aec0",
-                      fontWeight: "700",
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      fontSize: "14px",
-                    }}
-                  >
-                    САМОВЫВОЗ
-                  </SegmentedControl.Item>
-                  <SegmentedControl.Item
-                    selected={delivery === "cdek"}
-                    onClick={() => setDelivery("cdek")}
-                    style={{
-                      backgroundColor:
-                        delivery === "cdek" ? "#38a169" : "transparent",
-                      color: delivery === "cdek" ? "white" : "#a0aec0",
-                      fontWeight: "700",
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                      fontSize: "14px",
-                    }}
-                  >
-                    СДЭК
-                  </SegmentedControl.Item>
-                </SegmentedControl>
-              </div>
+                <SegmentedControl.Item
+                  selected={delivery === "pickup"}
+                  onClick={() => {
+                    setDelivery("pickup");
+                    setSelectedCdekPoint(""); // Сбрасываем выбор пункта СДЭК
+                  }}
+                  style={{
+                    backgroundColor:
+                      delivery === "pickup"
+                        ? "var(--btn-primary-bg)"
+                        : "transparent",
+                    color:
+                      delivery === "pickup"
+                        ? "var(--btn-primary-text)"
+                        : "var(--text-secondary)",
+                    fontWeight: "700",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontSize: "14px",
+                  }}
+                >
+                  САМОВЫВОЗ
+                </SegmentedControl.Item>
+                <SegmentedControl.Item
+                  selected={delivery === "cdek"}
+                  onClick={() => setDelivery("cdek")}
+                  style={{
+                    backgroundColor:
+                      delivery === "cdek"
+                        ? "var(--btn-primary-bg)"
+                        : "transparent",
+                    color:
+                      delivery === "cdek"
+                        ? "var(--btn-primary-text)"
+                        : "var(--text-secondary)",
+                    fontWeight: "700",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px",
+                    fontSize: "14px",
+                  }}
+                >
+                  СДЭК
+                </SegmentedControl.Item>
+              </SegmentedControl>
 
               <div style={{ marginTop: "16px" }}>
                 {delivery === "pickup" ? (
                   // Адрес самовывоза
                   <div>
-                    <div style={{ marginBottom: "12px" }}>
-                      <Text
-                        style={{
-                          color: "#68d391",
-                          fontSize: "14px",
-                          fontWeight: "700",
-                          textTransform: "uppercase",
-                          letterSpacing: "1px",
-                        }}
-                      >
-                        📍 ПУНКТ ВЫДАЧИ
-                      </Text>
-                    </div>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-primary)",
                         fontSize: "16px",
                         fontWeight: "600",
-                        marginBottom: "8px",
                       }}
                     >
                       г. Москва, ул. Пушкина, д. 4
                     </Text>
                     <div
                       style={{
-                        backgroundColor: "#1a202c",
+                        backgroundColor: "var(--bg-subtle)",
                         padding: "12px",
                         borderRadius: "6px",
-                        border: "1px solid #4a5568",
+                        marginTop: "8px",
                       }}
                     >
                       <div
@@ -433,7 +422,7 @@ export const CartPage: FC = () => {
                       >
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--color-accent)",
                             fontSize: "12px",
                             fontWeight: "600",
                           }}
@@ -442,7 +431,7 @@ export const CartPage: FC = () => {
                         </Text>
                         <Text
                           style={{
-                            color: "#e2e8f0",
+                            color: "var(--text-accent)",
                             fontSize: "12px",
                             fontWeight: "700",
                           }}
@@ -459,7 +448,7 @@ export const CartPage: FC = () => {
                       >
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--color-accent)",
                             fontSize: "12px",
                             fontWeight: "600",
                           }}
@@ -468,7 +457,7 @@ export const CartPage: FC = () => {
                         </Text>
                         <Text
                           style={{
-                            color: "#e2e8f0",
+                            color: "var(--text-primary)",
                             fontSize: "12px",
                             fontWeight: "700",
                           }}
@@ -484,7 +473,7 @@ export const CartPage: FC = () => {
                       >
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--color-accent)",
                             fontSize: "12px",
                             fontWeight: "600",
                           }}
@@ -493,7 +482,7 @@ export const CartPage: FC = () => {
                         </Text>
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--color-success)",
                             fontSize: "12px",
                             fontWeight: "700",
                           }}
@@ -508,7 +497,7 @@ export const CartPage: FC = () => {
                   <div>
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--color-accent)",
                         fontSize: "14px",
                         fontWeight: "700",
                         textTransform: "uppercase",
@@ -516,7 +505,7 @@ export const CartPage: FC = () => {
                         marginBottom: "12px",
                       }}
                     >
-                      📦 ВЫБЕРИТЕ ПУНКТ ВЫДАЧИ СДЭК
+                      ВЫБЕРИТЕ ПУНКТ ВЫДАЧИ СДЭК
                     </Text>
                     <div
                       style={{
@@ -532,12 +521,12 @@ export const CartPage: FC = () => {
                             padding: "12px",
                             backgroundColor:
                               selectedCdekPoint === point.id
-                                ? "#2d3748"
-                                : "#1a202c",
+                                ? "var(--bg-subtle)"
+                                : "var(--bg-base)",
                             border:
                               selectedCdekPoint === point.id
-                                ? "1px solid #38a169"
-                                : "1px solid #4a5568",
+                                ? "1px solid var(--color-success)"
+                                : "1px solid var(--brand)",
                             borderRadius: "8px",
                             cursor: "pointer",
                             transition: "all 0.2s ease",
@@ -558,13 +547,13 @@ export const CartPage: FC = () => {
                                 borderRadius: "50%",
                                 backgroundColor:
                                   selectedCdekPoint === point.id
-                                    ? "#38a169"
+                                    ? "var(--color-success)"
                                     : "transparent",
                                 border:
                                   "2px solid " +
                                   (selectedCdekPoint === point.id
-                                    ? "#38a169"
-                                    : "#4a5568"),
+                                    ? "var(--color-success)"
+                                    : "var(--brand)"),
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -585,7 +574,7 @@ export const CartPage: FC = () => {
                             <div style={{ flex: 1 }}>
                               <Text
                                 style={{
-                                  color: "#e2e8f0",
+                                  color: "var(--text-primary)",
                                   fontSize: "14px",
                                   fontWeight: "600",
                                   marginBottom: "4px",
@@ -595,7 +584,7 @@ export const CartPage: FC = () => {
                               </Text>
                               <Text
                                 style={{
-                                  color: "#a0aec0",
+                                  color: "var(--text-secondary)",
                                   fontSize: "12px",
                                   marginBottom: "2px",
                                 }}
@@ -604,7 +593,7 @@ export const CartPage: FC = () => {
                               </Text>
                               <Text
                                 style={{
-                                  color: "#68d391",
+                                  color: "var(--color-accent)",
                                   fontSize: "12px",
                                   fontWeight: "600",
                                 }}
@@ -618,10 +607,6 @@ export const CartPage: FC = () => {
                     </div>
                     <div
                       style={{
-                        backgroundColor: "#1a202c",
-                        padding: "12px",
-                        borderRadius: "6px",
-                        border: "1px solid #4a5568",
                         marginTop: "12px",
                       }}
                     >
@@ -633,7 +618,7 @@ export const CartPage: FC = () => {
                       >
                         <Text
                           style={{
-                            color: "#68d391",
+                            color: "var(--color-accent)",
                             fontSize: "12px",
                             fontWeight: "600",
                           }}
@@ -642,7 +627,7 @@ export const CartPage: FC = () => {
                         </Text>
                         <Text
                           style={{
-                            color: "#e2e8f0",
+                            color: "var(--text-primary)",
                             fontSize: "12px",
                             fontWeight: "700",
                           }}
@@ -671,9 +656,13 @@ export const CartPage: FC = () => {
                   backgroundColor:
                     items.length === 0 ||
                     (delivery === "cdek" && !selectedCdekPoint)
-                      ? "#4a5568"
-                      : "#38a169",
-                  color: "white",
+                      ? "var(--btn-secondary-border)"
+                      : "var(--btn-primary-bg)",
+                  color:
+                    items.length === 0 ||
+                    (delivery === "cdek" && !selectedCdekPoint)
+                      ? "var(--text-disabled)"
+                      : "var(--btn-primary-text)",
                   fontWeight: "700",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -684,7 +673,7 @@ export const CartPage: FC = () => {
                     items.length === 0 ||
                     (delivery === "cdek" && !selectedCdekPoint)
                       ? "none"
-                      : "0 4px 16px rgba(56, 161, 105, 0.3)",
+                      : "0 4px 16px rgba(170, 191, 173, 0.3)",
                   fontSize: "16px",
                 }}
               >
@@ -697,11 +686,7 @@ export const CartPage: FC = () => {
               {deliveryPrice > 0 && (
                 <div
                   style={{
-                    backgroundColor: "#1a202c",
-                    padding: "12px",
-                    borderRadius: "8px",
                     marginTop: "12px",
-                    border: "1px solid #4a5568",
                   }}
                 >
                   <div
@@ -711,12 +696,17 @@ export const CartPage: FC = () => {
                       marginBottom: "6px",
                     }}
                   >
-                    <Text style={{ color: "#a0aec0", fontSize: "14px" }}>
+                    <Text
+                      style={{
+                        color: "var(--text-secondary)",
+                        fontSize: "14px",
+                      }}
+                    >
                       Товары:
                     </Text>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-primary)",
                         fontSize: "14px",
                         fontWeight: "600",
                       }}
@@ -731,12 +721,17 @@ export const CartPage: FC = () => {
                       marginBottom: "6px",
                     }}
                   >
-                    <Text style={{ color: "#a0aec0", fontSize: "14px" }}>
+                    <Text
+                      style={{
+                        color: "var(--text-secondary)",
+                        fontSize: "14px",
+                      }}
+                    >
                       Доставка СДЭК:
                     </Text>
                     <Text
                       style={{
-                        color: "#e2e8f0",
+                        color: "var(--text-primary)",
                         fontSize: "14px",
                         fontWeight: "600",
                       }}
@@ -744,10 +739,9 @@ export const CartPage: FC = () => {
                       {deliveryPrice.toLocaleString()} ₽
                     </Text>
                   </div>
-                  <hr
+                  <Divider
                     style={{
-                      border: "none",
-                      borderTop: "1px solid #4a5568",
+                      backgroundColor: "var(--text-secondary)",
                       margin: "8px 0",
                     }}
                   />
@@ -756,7 +750,7 @@ export const CartPage: FC = () => {
                   >
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--color-accent)",
                         fontSize: "16px",
                         fontWeight: "700",
                       }}
@@ -765,7 +759,7 @@ export const CartPage: FC = () => {
                     </Text>
                     <Text
                       style={{
-                        color: "#68d391",
+                        color: "var(--color-accent)",
                         fontSize: "16px",
                         fontWeight: "700",
                       }}
