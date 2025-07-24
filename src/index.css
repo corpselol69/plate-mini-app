@@ -10,7 +10,7 @@ body {
   /* базовые плоскости */
   --bg-base: #0D2117;
   --bg-subtle: #20382d;
-  --surface-raised: #595046;
+  --surface-raised: #1b1b1b;
 
   /* текст и иконки */
   --text-primary: #F2E4D8;
