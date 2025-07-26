@@ -32,7 +32,7 @@ const initialItems: CartItem[] = [
 ];
 
 export const CartPage: FC = () => {
-  const [items, setItems] = useState<CartItem[]>(initialItems);
+  const [items] = useState<CartItem[]>(initialItems);
   const [delivery, setDelivery] = useState<"pickup" | "cdek">("pickup");
   const [selectedCdekPoint, setSelectedCdekPoint] = useState<string>("");
 
@@ -70,20 +70,20 @@ export const CartPage: FC = () => {
     },
   ];
 
-  const inc = (id: string) =>
-    setItems((prev) =>
-      prev.map((it) => (it.id === id ? { ...it, qty: it.qty + 1 } : it))
-    );
+  // const inc = (id: string) =>
+  //   setItems((prev) =>
+  //     prev.map((it) => (it.id === id ? { ...it, qty: it.qty + 1 } : it))
+  //   );
 
-  const dec = (id: string) =>
-    setItems((prev) =>
-      prev.map((it) =>
-        it.id === id && it.qty > 1 ? { ...it, qty: it.qty - 1 } : it
-      )
-    );
+  // const dec = (id: string) =>
+  //   setItems((prev) =>
+  //     prev.map((it) =>
+  //       it.id === id && it.qty > 1 ? { ...it, qty: it.qty - 1 } : it
+  //     )
+  //   );
 
-  const remove = (id: string) =>
-    setItems((prev) => prev.filter((it) => it.id !== id));
+  // const remove = (id: string) =>
+  //   setItems((prev) => prev.filter((it) => it.id !== id));
 
   const total = items.reduce((sum, it) => sum + it.price * it.qty, 0);
   const deliveryPrice = delivery === "cdek" ? 300 : 0;
